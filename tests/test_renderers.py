@@ -1,3 +1,5 @@
+import re
+
 import ezdxf
 
 from schematics_ai.drawing import render_dxf, render_svg
@@ -35,6 +37,21 @@ def test_render_svg_writes_file(tmp_path):
     out = render_svg(_sample(), tmp_path / "sub" / "out.svg")
     assert out.exists()
     assert out.read_text(encoding="utf-8").startswith("<?xml")
+
+
+def test_svg_viewbox_covers_all_notes():
+    schematic = Schematic(
+        title="many notes",
+        components=[Component(id="a", label="A", x=0, y=0)],
+        notes=[f"note {i}" for i in range(6)],
+    )
+    svg = schematic_to_svg(schematic)
+    viewbox = re.search(r'viewBox="([\d.\- ]+)"', svg).group(1).split()
+    min_y, vb_height = float(viewbox[1]), float(viewbox[3])
+    bottom = min_y + vb_height
+    note_ys = [float(y) for y in re.findall(r'class="note"[^>]*y="([\d.]+)"', svg)]
+    assert note_ys, "expected note elements in SVG"
+    assert max(note_ys) <= bottom
 
 
 def test_render_dxf_writes_readable_file(tmp_path):

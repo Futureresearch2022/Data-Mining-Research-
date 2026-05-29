@@ -60,7 +60,8 @@ def schematic_to_svg(schematic: Schematic) -> str:
     """Return the SVG document for ``schematic`` as a string."""
     min_x, min_y, max_x, max_y = schematic.bounds()
     width = max_x - min_x
-    height = max_y - min_y + 20  # extra room for title and notes
+    notes_height = len(schematic.notes) * 5 + 6 if schematic.notes else 6
+    height = max_y - min_y + 10 + notes_height  # room for title + notes
 
     body: list[str] = [
         f'<text class="title" x="{min_x + 2:.2f}" y="{min_y + 8:.2f}">'
