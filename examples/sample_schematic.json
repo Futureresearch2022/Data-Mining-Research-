@@ -1,0 +1,20 @@
+{
+  "title": "Single-stage gear reducer",
+  "components": [
+    { "id": "motor", "label": "Electric motor", "x": 10, "y": 40, "width": 50, "height": 30, "shape": "rounded" },
+    { "id": "input_shaft", "label": "Input shaft", "x": 90, "y": 48, "width": 40, "height": 14, "shape": "rect" },
+    { "id": "gearbox", "label": "Gearbox (pinion+gear)", "x": 160, "y": 35, "width": 70, "height": 40, "shape": "rect" },
+    { "id": "output_shaft", "label": "Output shaft", "x": 260, "y": 48, "width": 40, "height": 14, "shape": "rect" },
+    { "id": "coupling", "label": "Coupling", "x": 330, "y": 42, "width": 45, "height": 26, "shape": "ellipse" }
+  ],
+  "connections": [
+    { "from": "motor", "to": "input_shaft", "label": "drive" },
+    { "from": "input_shaft", "to": "gearbox" },
+    { "from": "gearbox", "to": "output_shaft", "label": "reduced" },
+    { "from": "output_shaft", "to": "coupling" }
+  ],
+  "notes": [
+    "Reduction ratio 4:1",
+    "All dimensions in millimetres"
+  ]
+}
