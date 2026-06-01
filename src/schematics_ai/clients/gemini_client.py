@@ -10,7 +10,7 @@ import os
 
 from schematics_ai.prompts import SYSTEM_PROMPT, build_user_prompt
 
-DEFAULT_MODEL = "gemini-1.5-flash"
+DEFAULT_MODEL = "gemini-2.5-flash"
 
 
 class GeminiClient:
